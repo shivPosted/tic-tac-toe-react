@@ -3,12 +3,21 @@ function GameBoard({
   setTrackList,
   currentSymbol,
   setCurrentSymbol,
+  playersRef,
 }) {
+  console.log(playersRef);
+  function trackPlayerTurns(rowCol, symbol) {
+    if (symbol === "X") playersRef.player1.turns.push(rowCol);
+    else playersRef.player2.turns.push(rowCol);
+  }
+
   function handleClick(row, col, symbol) {
     const newArr = trackList.map((rowList, rowIndex) => {
-      return rowList.map((colItem, colIndex) =>
-        rowIndex === row && colIndex === col ? symbol : colItem,
-      );
+      return rowList.map((colItem, colIndex) => {
+        const condn = rowIndex === row && colIndex === col;
+        if (condn) trackPlayerTurns([rowIndex, colIndex], symbol);
+        return condn ? symbol : colItem;
+      });
     });
     setTrackList(newArr);
     setCurrentSymbol((cur) => (cur === "X" ? "O" : "X"));
