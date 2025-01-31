@@ -1,3 +1,11 @@
+import Header from "./Components/Header";
+import MainContainer from "./Components/MainContainer";
+
 export default function App() {
-  return <div>Tic Tac</div>;
+  return (
+    <>
+      <Header />
+      <MainContainer />
+    </>
+  );
 }
