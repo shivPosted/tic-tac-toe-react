@@ -1,12 +1,13 @@
+import { useGameContext } from "./Contexts/GameContext";
 import Player from "./Player";
 
-function MainContainer({ children, updateNameRef }) {
+function MainContainer({ children }) {
   return (
     <main id="game-container">
       <ol id="players">
-        <Player name="Max" symbol="O" updateName={updateNameRef.playerO} />
+        <Player name="Max" symbol="O" />
 
-        <Player name="Manual" symbol="X" updateName={updateNameRef.playerX} />
+        <Player name="Manual" symbol="X" />
       </ol>
       {children}
     </main>

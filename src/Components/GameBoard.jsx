@@ -1,11 +1,15 @@
-function GameBoard({
-  trackList,
-  setTrackList,
-  currentSymbol,
-  setCurrentSymbol,
-  updateRef,
-}) {
-  function handleClick(e, row, col, symbol) {
+import { useGameContext } from "./Contexts/GameContext";
+
+function GameBoard() {
+  const {
+    trackList,
+    handleTrackListChange,
+    currentSymbol,
+    handleCurrentSymbolChange,
+    handlePlayerTurnTrack,
+  } = useGameContext();
+
+  function handleClick(e, row, col) {
     if (e.target.value) return null; //NOTE: in case when it already been fieled
 
     const newArr = trackList.map((rowList, rowIndex) => {
@@ -19,15 +23,15 @@ function GameBoard({
           if (rowIndex === 2) accumFactor = 6;
 
           if (currentSymbol === "X")
-            updateRef.playerX.turns.push(accumFactor + col);
+            handlePlayerTurnTrack("X", accumFactor + col);
           else if (currentSymbol === "O")
-            updateRef.playerO.turns.push(accumFactor + col);
+            handlePlayerTurnTrack("O", accumFactor + col);
         }
-        return condn ? symbol : colItem;
+        return condn ? currentSymbol : colItem;
       });
     });
-    setTrackList(newArr);
-    setCurrentSymbol((cur) => (cur === "X" ? "O" : "X"));
+    handleTrackListChange(newArr);
+    handleCurrentSymbolChange(currentSymbol === "X" ? "O" : "X");
   }
 
   return (
@@ -41,9 +45,7 @@ function GameBoard({
                   return (
                     <li key={colIndex}>
                       <button
-                        onClick={(e) =>
-                          handleClick(e, rowIndex, colIndex, currentSymbol)
-                        }
+                        onClick={(e) => handleClick(e, rowIndex, colIndex)}
                         value={playerSymbol}
                       >
                         {playerSymbol}

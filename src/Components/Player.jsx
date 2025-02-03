@@ -1,25 +1,24 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useGameContext } from "./Contexts/GameContext";
 
-function Player({ name, symbol, updateName }) {
+function Player({ symbol }) {
   const [isEditing, setIsEditing] = useState(false);
-  const [playerName, setPlayerName] = useState(name);
+  const { playerXName, playerOName, handleNameChange } = useGameContext();
 
-  console.log(updateName);
   const Name = isEditing ? (
     <input
       type="text"
-      value={playerName}
+      value={symbol === "X" ? playerXName : playerOName}
       onChange={(e) => {
-        setPlayerName(e.target.value);
+        handleNameChange(e.target.value, symbol);
       }}
     />
   ) : (
-    <span className="player-name">{playerName}</span>
+    <span className="player-name">
+      {symbol === "X" ? playerXName : playerOName}
+    </span>
   );
 
-  useEffect(() => {
-    updateName.name = playerName;
-  }, [playerName, updateName]);
   return (
     <li>
       <span className="player">
