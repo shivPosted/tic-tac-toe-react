@@ -1,16 +1,12 @@
 import Player from "./Player";
 
-function MainContainer({ children, playersRef }) {
+function MainContainer({ children, updateNameRef }) {
   return (
     <main id="game-container">
       <ol id="players">
-        <Player name="Max" symbol="O" playersRef={playersRef.current.player1} />
+        <Player name="Max" symbol="O" updateName={updateNameRef.playerO} />
 
-        <Player
-          name="Manual"
-          symbol="X"
-          playersRef={playersRef.current.player2}
-        />
+        <Player name="Manual" symbol="X" updateName={updateNameRef.playerX} />
       </ol>
       {children}
     </main>

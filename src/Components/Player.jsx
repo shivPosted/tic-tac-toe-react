@@ -1,26 +1,25 @@
 import { useEffect, useState } from "react";
 
-function Player({ name, symbol, playersRef }) {
+function Player({ name, symbol, updateName }) {
   const [isEditing, setIsEditing] = useState(false);
   const [playerName, setPlayerName] = useState(name);
 
-  useEffect(() => {
-    playersRef.name = playerName;
-  }, [playerName, playersRef]);
-
+  console.log(updateName);
   const Name = isEditing ? (
     <input
       type="text"
       value={playerName}
       onChange={(e) => {
         setPlayerName(e.target.value);
-        playersRef.name = e.target.value;
       }}
     />
   ) : (
     <span className="player-name">{playerName}</span>
   );
 
+  useEffect(() => {
+    updateName.name = playerName;
+  }, [playerName, updateName]);
   return (
     <li>
       <span className="player">
